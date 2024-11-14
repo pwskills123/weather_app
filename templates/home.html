@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff66b3, #3399ff, #66ff66);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+
+        .regform {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .main-form {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            color: #fff;
+            border-radius: 15px;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .result-container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            color: #fff;
+            border-radius: 15px;
+        }
+
+        .result-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .result-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .weather-icon {
+            max-width: 50px;
+            max-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="regform">
+                    <h1>Live Weather Forecast</h1>
+                    <p>Get real-time weather information for any location.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <form action="/predict_weather" class="main-form" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="location" name="location" placeholder="Enter Location" class="form-control"
+                            style="font-size: 20px; border-radius: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success mt-3">Get Weather</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if error %}
+    <div class="container result-container">
+        <h2 class="result-header">{{ error }}</h2>
+    </div>
+    {% endif %}
+    {% if name %}
+    <div class="container result-container">
+        <div class="result-header">Current Weather in {{ name }}</div>
+        <div class="result-text">{{ temp_c }}°C / {{ temp_f }}°F
+            <img src="{{ condition_icon }}" class="weather-icon">
+        </div>
+        <div class="result-text">Last Updated: {{ last_updated }}</div>
+        <hr>
+        <div class="row">
+            <div class="col result-text">
+                <p>Region: {{ region }} / {{ country }}</p>
+                <p>Lattitude: {{ lat }}°</p>
+                <p>Longitude: {{ lon }}°</p>
+                <p>TimeZone: {{ tz_id }}</p>
+                <p>LocalTime: {{ localtime }}</p>
+            </div>
+            <div class="col result-text">
+                <p>Condition: {{ condition_text }}</p>
+                <p>Wind: {{ wind_mph }}mph / {{ wind_kph }}kph</p>
+                <p>Wind Direction: {{ wind_degree }}° {{ wind_dir }}</p>
+                <p>Pressure: {{ pressure_mb }}mb / {{ pressure_in }}in</p>
+                <p>Precip: {{ precip_mm }}mm / {{ precip_in }}in</p>
+            </div>
+            <div class="col result-text">
+                <p>Humidity: {{ humidity }}</p>
+                <p>Feelslike: {{ feelslike_c }}°C / {{ feelslike_f }}°F</p>
+                <p>Visibility: {{ vis_km }}km / {{ vis_miles }}miles</p>
+                <p>UV: {{ uv }}</p>
+                <p>Gust mph: {{ gust_mph }}mph / {{ gust_kph }}kph</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtI```
